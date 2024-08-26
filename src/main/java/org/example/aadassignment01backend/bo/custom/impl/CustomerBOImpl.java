@@ -4,6 +4,7 @@ import org.example.aadassignment01backend.bo.custom.CustomerBO;
 import org.example.aadassignment01backend.dao.DAOFactory;
 import org.example.aadassignment01backend.dao.custom.CustomerDAO;
 import org.example.aadassignment01backend.dto.CustomerDTO;
+import org.example.aadassignment01backend.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,41 +14,53 @@ public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO= (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Customer> allCustomer=customerDAO.getAll();
+        ArrayList<CustomerDTO> customerDTOS=new ArrayList<>();
+
+        for (Customer customer:allCustomer){
+            customerDTOS.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress(),customer.getContact()));
+        }
+        return customerDTOS;
     }
 
     @Override
     public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return customerDAO.exist(id);
     }
 
     @Override
     public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
+        return customerDAO.save(new Customer(dto.getId(),dto.getName(),dto.getAddress(),dto.getContact()));
     }
 
     @Override
     public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
+        return customerDAO.update(new Customer(dto.getId(),dto.getName(),dto.getAddress(),dto.getContact()));
     }
 
     @Override
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return customerDAO.delete(id);
     }
 
     @Override
     public String nextCustomerId() throws SQLException, ClassNotFoundException {
-        return "";
+        return customerDAO.nextId();
     }
 
     @Override
     public CustomerDTO search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+        Customer search=customerDAO.search(newValue);
+        return new CustomerDTO(search.getId(),search.getName(),search.getAddress(),search.getContact());
     }
 
     @Override
     public ArrayList<CustomerDTO> searchByContact(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+       ArrayList<Customer> search=customerDAO.searchByContact(newValue);
+       ArrayList<CustomerDTO> customerDTOS=new ArrayList<>();
+       for (Customer customer:search){
+           customerDTOS.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress(),customer.getContact()));
+       }
+       return customerDTOS;
     }
 }
