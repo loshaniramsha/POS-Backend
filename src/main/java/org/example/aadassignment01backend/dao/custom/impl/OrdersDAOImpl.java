@@ -16,7 +16,7 @@ public class OrdersDAOImpl implements OrdersDAO {
         ResultSet rst=SQLUtil.execute("SELECT * FROM orders");
         ArrayList<Orders> getAllOrders=new ArrayList<>();
         while (rst.next()){
-            Orders orders=new Orders(rst.getString("id"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId"));
+            Orders orders=new Orders(rst.getString("orderId"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId"));
             getAllOrders.add(orders);
         }
         return getAllOrders;
@@ -39,7 +39,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst=SQLUtil.execute("SELECT id FROM orders WHERE id=?",id);
+        ResultSet rst=SQLUtil.execute("SELECT orderId FROM orders WHERE orderId=?",id);
         return rst.next();
     }
 
@@ -51,18 +51,18 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public Orders search(String newValue) throws SQLException, ClassNotFoundException {
-       ResultSet rst=SQLUtil.execute("SELECT * FROM orders WHERE id=?",newValue+"");
+       ResultSet rst=SQLUtil.execute("SELECT * FROM orders WHERE orderId=?",newValue+"");
        rst.next();
-       Orders orders=new Orders(rst.getString("id"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId"));
+       Orders orders=new Orders(rst.getString("orderId"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId"));
        return orders;
     }
 
     @Override
     public ArrayList<Orders> searchByOrderId(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst=SQLUtil.execute("SELECT * FROM orders WHERE id like ?",id+"%");
+        ResultSet rst=SQLUtil.execute("SELECT * FROM orders WHERE orderId like ?",id+"%");
         ArrayList<Orders> orders=new ArrayList<>();
         while (rst.next()){
-            orders.add(new Orders(rst.getString("id"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId")));
+            orders.add(new Orders(rst.getString("orderId"),rst.getString("date"),rst.getDouble("discount"),rst.getDouble("total"),rst.getString("customerId")));
         }
         return orders;
     }
