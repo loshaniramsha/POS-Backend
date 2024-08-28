@@ -45,7 +45,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public String nextId() throws SQLException, ClassNotFoundException {
-        ResultSet rst= SQLUtil.execute("SELECT id FROM orders ORDER BY id DESC LIMIT 1;");
+        ResultSet rst= SQLUtil.execute("SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1;");
         return  rst.next() ? String.format("O00-%03d",Integer.parseInt(rst.getString(1).replace("OID-",""))+1) : "OID-001";
     }
 

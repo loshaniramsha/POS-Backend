@@ -94,6 +94,7 @@ public class OrdersController extends HttpServlet {
        try (var writer=resp.getWriter()){
            logger.info("orders post method");
            OrdersDTO ordersDTO=jsonb.fromJson(req.getReader(),OrdersDTO.class);
+           System.out.println(ordersDTO);
            boolean isSaved=ordersBO.saveOrder(ordersDTO);
 
            if (isSaved){
