@@ -12,16 +12,8 @@ import java.io.Serializable;
 @Data
 
 public class CustomerDTO implements Serializable {
-
-    @JsonbProperty("id")
     private String id;
-
-    @JsonbProperty("name")
     private String name;
-
-    @JsonbProperty("address")
     private String address;
-
-    @JsonbProperty("contact")
     private String contact;
 }

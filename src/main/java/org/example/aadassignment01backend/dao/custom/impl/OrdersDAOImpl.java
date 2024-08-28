@@ -24,7 +24,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public boolean save(Orders dto) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO orders  VALUES(?,?,?,?,?)",dto.getOrderId(),dto.getDate(),dto.getDiscount(),dto.getTotal(),dto.getCustomerId());
+        return SQLUtil.execute("INSERT INTO orders VALUES(?,?,?,?,?)",dto.getOrderId(),dto.getDate(),dto.getDiscount(),dto.getTotal(),dto.getCustomerId());
     }
 
     @Override
