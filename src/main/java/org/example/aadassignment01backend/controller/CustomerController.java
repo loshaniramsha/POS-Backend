@@ -90,6 +90,7 @@ public class CustomerController extends HttpServlet {
             logger.info("Inside customer post method");
 
             CustomerDTO customerDTO=jsonb.fromJson(req.getReader(),CustomerDTO.class);
+            System.out.println(customerDTO);
             boolean isSaved=customerBO.saveCustomer(customerDTO);
 
             if (isSaved){
